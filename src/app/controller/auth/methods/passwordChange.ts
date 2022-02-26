@@ -14,15 +14,15 @@ export const passwordChange: RequestHandler = async (
     const user = await User.findOne({
       where: { username },
     });
-    if (!user) return response.status(404).send("User not found");
+    if (!user) response.status(404).send("User not found");
 
     if (!(await bcrypt.compare(oldPassword, user.password)))
-      return response.status(401).send("Old password is wrong");
+      response.status(401).send("Old password is wrong");
 
     user.password = await bcrypt.hash(newPassword, 10);
     await user.save();
-    return response.status(200).send("Password changed");
+    response.status(200).send("Password changed");
   } catch {
-    return response.status(500).send("Server error");
+    response.status(500).send("Server error");
   }
 };

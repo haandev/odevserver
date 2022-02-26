@@ -22,13 +22,33 @@ app.get("/", function (request, response) {
     `Welcome to ${process.env.APP_NAME} v${process.env.APP_VERSION}!`
   );  
 }); 
+
+
+
 const sslOptions = {  
   key: fs.readFileSync("ssl/private.key"),
   cert: fs.readFileSync("ssl/certificate.crt"),
 }; 
 (async () => {   
   await connect();
-  router(app);
+  /* router(app);
+   */
+  await import("./src/app/router/auth").then((loadedModule)=>{
+    app.use("/auth",loadedModule.default)
+  })
+
+  await import("./src/app/router/category").then((loadedModule)=>{
+    app.use("/category",loadedModule.default)
+  })
+  
+  await import("./src/app/router/status").then((loadedModule)=>{
+    app.use("/status",loadedModule.default)
+  })
+   
+  await import("./src/app/router/todo").then((loadedModule)=>{
+    app.use("/status",loadedModule.default)
+  }) 
+   
   await sync(); 
   asciify(
     "KORRI-B",

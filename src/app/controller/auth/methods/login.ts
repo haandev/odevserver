@@ -21,9 +21,11 @@ export const login: RequestHandler = async (request, response) => {
       const payload = { id: user.id, username: user.username };
       console.log(payload);
 
+      
       const token = jwt.sign(payload, process.env.TOKEN_KEY, {
         expiresIn: "120m",
       });
+
 
       const _refreshToken = uid2(64);
 
@@ -44,11 +46,17 @@ export const login: RequestHandler = async (request, response) => {
         expires,
       });
 
-      return response.status(200).send({ ...payload, token });
+      response.cookie("accessToken", token, {
+        secure: process.env.NODE_ENV !== "development",
+        httpOnly: true,
+        expires,
+      });
+
+      response.status(200).send({ ...payload, token });
     } else {
-      return response.status(400).send("Invalid Credentials");
+      response.status(400).send("Invalid Credentials");
     }
   } catch (error) {
-    return response.status(500).send("Server error");
+    response.status(500).send("Server error");
   }
 };

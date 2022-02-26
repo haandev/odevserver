@@ -9,10 +9,9 @@ export const sequelize = new Sequelize({
   database: process.env.DB_NAME,
   define: {
     underscored: false,
+    charset: "utf8",
+    collate: "utf8_general_ci",
     timestamps: true,
-  },
-  query:{
-    raw:true,
   },
   logQueryParameters: process.env.NODE_ENV === "development",
   logging: process.env.NODE_ENV === "development" ? console.log : false,
@@ -30,7 +29,7 @@ export const sync = async () => {
   try {
     await sequelize.sync({
       alter: process.env.NODE_ENV === "development",
-      logging: false,
+      logging: console.log,
     });
     console.log(`Models synchronized successfully`);
   } catch (error) {
