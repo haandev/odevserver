@@ -1,0 +1,63 @@
+{
+  "Request Handler": {
+    "prefix": "rhm",
+    "body": [
+      "import { RequestHandler } from \"express\";",
+      "",
+      "export const ${TM_FILENAME_BASE}: RequestHandler = async (request, response) => {",
+      "  try {",
+      "    ${1:/* try code */}",
+      "  } catch {",
+      "    return response.status(500).send(\"Server error\");",
+      "  }",
+      "}"
+    ],
+    "description": "Request Handler"
+  },
+  "Request Handler with Next": {
+    "prefix": "rhmn",
+    "body": [
+      "import { RequestHandler } from \"express\";",
+      "",
+      "export const ${TM_FILENAME_BASE}: RequestHandler = async (request, response, next) => {",
+      "  try {",
+      "    ${1:/* try code */}",
+      "    ",
+      "    next()",
+      "  } catch {",
+      "    return response.status(500).send(\"Server error\");",
+      "  }",
+      "}"
+    ],
+    "description": "Request Handler"
+  },
+  "Sequelize Model": {
+    "prefix": "sqm",
+    "body": [
+      "import { sequelize, DataTypes, Model } from \"@/bootstrap/init-connection\";",
+      "",
+      "export class ${TM_FILENAME_BASE} extends Model {",
+      "  id: number;",
+      "  ${1:/* type definitions */}",
+      "}",
+      "",
+      "${TM_FILENAME_BASE}.init(",
+      "  {",
+      "    id: {",
+      "      autoIncrement: true,",
+      "      type: DataTypes.INTEGER.UNSIGNED,",
+      "      allowNull: false,",
+      "      primaryKey: true,",
+      "    },",
+      "    ${2:/* field initialization */}",
+      "  },",
+      "  {",
+      "    tableName: \"${TM_FILENAME_BASE/(.*)$/${1:/downcase}/}\",",
+      "    sequelize,",
+      "  }",
+      ");",
+      ""
+    ],
+    "description": "Sequelize Model"
+  }
+}

@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+      "target": "es6",
+      "forceConsistentCasingInFileNames": true,
+      "module": "esnext",
+      "declaration": false,
+      "noImplicitAny": false,
+      "removeComments": true,
+      "noLib": false,
+      "lib": ["es2017", "dom"],
+      "moduleResolution": "node",
+      "allowSyntheticDefaultImports": true,
+      "sourceMap": true,
+      "paths": {
+        "@/*": ["./src/*"]
+      },
+      "typeRoots" : ["./src/types", "./node_modules/@types"]
+    },
+    "include": ["**/*"],
+    "exclude": ["node_modules", "**/*.spec.ts"]
+  }
