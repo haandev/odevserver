@@ -23,35 +23,18 @@ app.get("/", function (request, response) {
   );  
 }); 
 
-
-
 const sslOptions = {  
   key: fs.readFileSync("ssl/private.key"),
   cert: fs.readFileSync("ssl/certificate.crt"),
 }; 
+
 (async () => {   
   await connect();
-  /* router(app);
-   */
-  await import("./src/app/router/auth").then((loadedModule)=>{
-    app.use("/auth",loadedModule.default)
-  })
-
-  await import("./src/app/router/category").then((loadedModule)=>{
-    app.use("/category",loadedModule.default)
-  })
-  
-  await import("./src/app/router/status").then((loadedModule)=>{
-    app.use("/status",loadedModule.default)
-  })
-   
-  await import("./src/app/router/todo").then((loadedModule)=>{
-    app.use("/status",loadedModule.default)
-  }) 
-   
+  router(app);
+ 
   await sync(); 
   asciify(
-    "KORRI-B",
+    "PTK167",
     { font: "starwars", color: "green" },
     function (_err: any, res: any) {
       console.log(res);
