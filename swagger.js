@@ -10,7 +10,7 @@ const doc = {
 };
 
 const outputFile = './swagger.json';
-const endpointsFiles = ['index.ts'];
+const endpointsFiles = ['./build/index.js'];
 
 /* NOTE: if you use the express Router, you must pass in the 
    'endpointsFiles' only the root file where the route starts,

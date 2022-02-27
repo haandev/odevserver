@@ -19,8 +19,6 @@ export const login: RequestHandler = async (request, response) => {
       /* Omit here the sensitive information in User model to generate jwt */
 
       const payload = { id: user.id, username: user.username };
-      console.log(payload);
-
       
       const token = jwt.sign(payload, process.env.TOKEN_KEY, {
         expiresIn: "120m",

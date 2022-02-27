@@ -10,17 +10,5 @@
   "schemes": [
     "http"
   ],
-  "paths": {
-    "/": {
-      "get": {
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    }
-  }
+  "paths": {}
 }

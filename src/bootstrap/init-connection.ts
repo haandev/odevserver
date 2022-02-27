@@ -29,7 +29,7 @@ export const sync = async () => {
   try {
     await sequelize.sync({
       alter: process.env.NODE_ENV === "development",
-      logging: console.log,
+      logging: false
     });
     console.log(`Models synchronized successfully`);
   } catch (error) {
