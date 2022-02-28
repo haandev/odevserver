@@ -13,4 +13,4 @@ RUN yarn
 # Bundle app source
 COPY . .
 EXPOSE 80 443
-CMD [ "yarn", "start" ]
+CMD [ "yarn", "start:build" ]
