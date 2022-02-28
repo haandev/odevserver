@@ -37,7 +37,7 @@ export const verifyToken: RequestHandler = async (request, response, next) => {
         expires.setMinutes(expires.getMinutes() + 1);
 
         response.cookie("accessToken ", token, {
-          secure: process.env.NODE_ENV !== "development",
+        //  secure: process.env.NODE_ENV !== "development",
           httpOnly: true,
           expires,
         });

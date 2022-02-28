@@ -38,13 +38,13 @@ export const login: RequestHandler = async (request, response) => {
       });
 
       response.cookie("refreshToken", _refreshToken, {
-        secure: process.env.NODE_ENV !== "development",
+     //   secure: process.env.NODE_ENV !== "development",
         httpOnly: true,
         expires,
       });
 
       response.cookie("accessToken", token, {
-        secure: process.env.NODE_ENV !== "development",
+     //   secure: process.env.NODE_ENV !== "development",
         httpOnly: true,
         expires, //TODO: MAKE IT SAME WITH HEADER
       });

@@ -22,6 +22,7 @@ const trimEndStr = (source: string, str: string) => {
 const routes = [];
 const recursivePath = (r, pathPrev = "") => {
   const path = getFullPath(r, pathPrev);
+  console.log(r)
   if (r.name === "router") {
     const stack = r.handle.stack;
     stack.forEach((r, i) => {
