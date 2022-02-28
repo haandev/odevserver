@@ -12,6 +12,6 @@ fs.rmSync("build", { recursive: true, force: true });
 compiler.run((err, stats) => {
   if (err) console.log(err);
   else {
-    require("../build/index.js")
+    require("../../build/index.js")
   }
 });
