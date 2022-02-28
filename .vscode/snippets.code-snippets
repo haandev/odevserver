@@ -2,13 +2,14 @@
   "Request Handler": {
     "prefix": "rhm",
     "body": [
-      "import { RequestHandler } from \"express\";",
+      "import { RequestHandler } from \"@ooic/core\";",
       "",
       "export const ${TM_FILENAME_BASE}: RequestHandler = async (request, response) => {",
       "  try {",
       "    ${1:/* try code */}",
-      "  } catch {",
-      "    response.status(500).send(\"Server error\");",
+      "  } catch (error) {",
+      "    console.log(error);",
+      "    return response.status(500).send(\"Server error\");",
       "  }",
       "}"
     ],
@@ -17,15 +18,16 @@
   "Request Handler with Next": {
     "prefix": "rhmn",
     "body": [
-      "import { RequestHandler } from \"express\";",
+      "import { RequestHandler } from \"@ooic/core\";",
       "",
       "export const ${TM_FILENAME_BASE}: RequestHandler = async (request, response, next) => {",
       "  try {",
       "    ${1:/* try code */}",
       "    ",
       "    next()",
-      "  } catch {",
-      "    response.status(500).send(\"Server error\");",
+      "  } catch (error) {",
+      "    console.log(error);",
+      "    return response.status(500).send(\"Server error\");",
       "  }",
       "}"
     ],
@@ -34,7 +36,7 @@
   "Sequelize Model": {
     "prefix": "sqm",
     "body": [
-      "import { sequelize, DataTypes, Model } from \"@/bootstrap/init-connection\";",
+      "import { sequelize, DataTypes, Model } from \"@ooic/core\";",
       "",
       "export class ${TM_FILENAME_BASE} extends Model {",
       "  id: number;",
@@ -63,10 +65,10 @@
   "Standart Router": {
     "prefix": "rou",
     "body": [
-      "import express from \"express\";",
-      "const router = express.Router();",
+      "import { Router } from \"@ooic/core\";",
+      "const router = Router();",
       "",
-      "import * as ${TM_FILENAME_BASE} from \"@/app/controller/${TM_FILENAME_BASE}\";",
+      "import * as ${TM_FILENAME_BASE} from \"@/controller/${TM_FILENAME_BASE}\";",
       "",
       "router.post(\"/\", ${TM_FILENAME_BASE}.create);",
       "router.put(\"/:id\", ${TM_FILENAME_BASE}.update);",
@@ -78,5 +80,21 @@
       ""
     ],
     "description": "Standart Router"
+  },
+  "Export Controller Method": {
+    "prefix": "excm",
+    "body": ["export { ${1:methodName} } from \"./methods/${1:methodName}\";"],
+    "description": "Export Controller Method"
+  },
+  "Export Controller Method Crud": {
+    "prefix": "crud",
+    "body": [
+      "export { get } from \"./methods/get\";",
+      "export { getById } from \"./methods/getById\";",
+      "export { update } from \"./methods/update\";",
+      "export { destroy } from \"./methods/destroy\";",
+      "export { create } from \"./methods/create\";"
+    ],
+    "description": "Export Controller Method Crud"
   }
 }
