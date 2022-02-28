@@ -55,6 +55,6 @@ export const login: RequestHandler = async (request, response) => {
     }
   } catch (error) {
     console.log(error);
-    response.status(500).send("Server error");
+    response.status(500).send(error);
   }
 };

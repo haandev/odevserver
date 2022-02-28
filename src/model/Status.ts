@@ -5,6 +5,7 @@ export class Status extends Model {
   id: number;
   title: string;
   color: string;
+  categoryId:number;
   Category: Category
 }
 

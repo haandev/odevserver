@@ -48,7 +48,8 @@ export const verifyToken: RequestHandler = async (request, response, next) => {
       }
     }
     next();
-  } catch {
-    response.status(500).send("Server error");
+  } catch (error) {
+    console.log(error);
+    response.status(500).send(error);
   }
 };

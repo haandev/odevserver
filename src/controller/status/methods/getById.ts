@@ -9,7 +9,8 @@ export const getById: RequestHandler = async (request, response) => {
       where: { id: Number(id)},include:Category 
     });
     response.status(200).send(status);
-  } catch {
-    response.status(500).send("Server error");
+  } catch (error) {
+    console.log(error);
+    response.status(500).send(error);
   }
 };

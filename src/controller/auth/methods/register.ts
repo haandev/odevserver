@@ -19,6 +19,6 @@ export const register: RequestHandler = async (request, response, next) => {
     next();
   } catch (error) {
     console.log(error);
-    response.status(500).send("Server error");
+    response.status(500).send(error);
   }
 };

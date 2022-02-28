@@ -11,7 +11,8 @@ export const update: RequestHandler = async (request, response) => {
 
     todo.update(request.body);
     response.status(200).send(todo);
-  } catch {
-    response.status(500).send("Server error");
+  } catch (error) {
+    console.log(error);
+    response.status(500).send(error);
   }
 };

@@ -6,7 +6,9 @@ import { User } from "./User";
 export class Todo extends Model {
   id: number;
   title: string;
-  userId:number
+  userId:number;
+  categoryId:number;
+  statusId:number;
 }
 
 Todo.init(

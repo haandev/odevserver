@@ -22,7 +22,8 @@ export const passwordChange: RequestHandler = async (
     user.password = await bcrypt.hash(newPassword, 10);
     await user.save();
     response.status(200).send("Password changed");
-  } catch {
-    response.status(500).send("Server error");
+  } catch (error) {
+    console.log(error);
+    response.status(500).send(error);
   }
 };

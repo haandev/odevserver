@@ -8,7 +8,8 @@ export const getById: RequestHandler = async (request, response) => {
       where: { id: Number(id), userId: Number(request.authUser.id) },
     });
     response.status(200).send(category);
-  } catch {
-    response.status(500).send("Server error");
+  } catch (error) {
+    console.log(error);
+    response.status(500).send(error);
   }
 };

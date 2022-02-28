@@ -11,7 +11,8 @@ export const destroy: RequestHandler = async (request, response) => {
 
     category.destroy();
     response.status(200).send("Deleted");
-  } catch {
-    response.status(500).send("Server error");
+  } catch (error) {
+    console.log(error);
+    response.status(500).send(error);
   }
 };

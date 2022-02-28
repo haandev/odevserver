@@ -6,6 +6,6 @@ export const create: RequestHandler = async (request, response) => {
     response.send(result);
   } catch (error) {
     console.log(error);
-    response.status(500).send("Server error");
+    response.status(500).send(error);
   }
 };
