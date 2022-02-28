@@ -6,19 +6,18 @@ import { Login } from "@/model/Login";
 export const verifyToken: RequestHandler = async (request, response, next) => {
   try {
     const { refreshToken, accessToken } = request.cookies;
+   /*  console.log(request.headers.cookie)
+    console.log(request.cookies) */
     const authorizationHeader = request.headers["authorization"];
     const token = authorizationHeader?.substring(7) || accessToken;
-    
-    if (
-      !accessToken &&
-      (!authorizationHeader || !authorizationHeader?.startsWith("Bearer "))
-    )
-      response.status(403).send("Invalid Authorization Strategy");
 
-    if (!token)
-      return response
-        .status(403)
-        .send("A token is required for authentication");
+    if (!accessToken && (!authorizationHeader || !authorizationHeader?.startsWith("Bearer "))) {
+      console.log("access token", accessToken);
+      console.log("authorizationHeader", authorizationHeader);
+      return response.status(403).send("Invalid Authorization Strategy");
+    }
+
+    if (!token) return response.status(403).send("A token is required for authentication");
 
     try {
       request.authUser = jwt.verify(token, process.env.TOKEN_KEY);
@@ -44,12 +43,12 @@ export const verifyToken: RequestHandler = async (request, response, next) => {
         });
         next();
       } else {
-        response.status(401).send({ login, user });
+        return response.status(401).send({ login, user });
       }
     }
     next();
   } catch (error) {
     console.log(error);
-    response.status(500).send(error);
+    return response.status(500).send(error);
   }
 };

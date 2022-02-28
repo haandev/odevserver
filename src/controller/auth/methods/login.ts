@@ -49,9 +49,9 @@ export const login: RequestHandler = async (request, response) => {
         expires, //TODO: MAKE IT SAME WITH HEADER
       });
 
-      response.status(200).send({ ...payload, token });
+      return response.status(200).send({ ...payload, token });
     } else {
-      response.status(400).send("Invalid Credentials");
+      return response.status(400).send("Invalid Credentials");
     }
   } catch (error) {
     console.log(error);

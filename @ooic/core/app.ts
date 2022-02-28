@@ -12,7 +12,7 @@ import { swaggerify } from "./swagger-autogen";
 export function ooic(config: OoicConfig) {
   const app = express();
   config.cors?.enabled && app.use(cors(config.cors.options));
-  config.morgan?.enabled && app.use(morgan(config.morgan.format, config.morgan.options));
+  config.morgan?.enabled && process.env.NODE_ENV==="development" && app.use(morgan(config.morgan.format, config.morgan.options));
   config.cookieParser?.enabled && app.use(cookieParser(config.cookieParser.secret, config.cookieParser.options));
   app.use(express.urlencoded({ extended: true }));
   app.use(express.json());
