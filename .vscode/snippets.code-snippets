@@ -88,17 +88,17 @@
   },
   "Zod Schema Body": {
     "prefix": "zb",
-    "body": ["export const bodySchema = zod.object({", "  ${1:title}: zod.${2:string}()", "});"],
+    "body": ["export const body = zod.object({", "  ${1:title}: zod.${2:string}()", "});"],
     "description": "Zod Schema File with Bod"
   },
   "Zod Schema Params": {
     "prefix": "zp",
-    "body": ["export const paramsSchema = zod.object({", "  ${1:id}: zod.${2:number}()", "});"],
+    "body": ["export const params = zod.object({", "  ${1:id}: zod.string().regex(/^\\d+$/).transform(Number)", "});"],
     "description": "Zod Schema File with Params"
   },
   "Zod Schema Query": {
     "prefix": "zq",
-    "body": ["export const querySchema = zod.object({", "  ${1:id}: zod.${2:number}()", "});"],
+    "body": ["export const query = zod.object({", "  ${1:id}: zod.${2:number}()", "});"],
     "description": "Zod Schema File with Query"
   },
   "Error handler middleware": {
