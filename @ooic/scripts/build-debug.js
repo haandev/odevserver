@@ -9,5 +9,6 @@ const compiler = webpack(cfg);
 
 fs.rmSync("build-debug", { recursive: true, force: true });
 compiler.run((err, stats) => {
+  console.log(stats)
   if (err) console.log(err);
 });

@@ -93,7 +93,7 @@
   },
   "Zod Schema Params": {
     "prefix": "zp",
-    "body": ["export const paramsSchema = zod.object({", "  ${1:id}: zod.string().regex(/^\\d+$/).transform(Number);", "});"],
+    "body": ["export const paramsSchema = zod.object({", "  ${1:id}: zod.${2:number}()", "});"],
     "description": "Zod Schema File with Params"
   },
   "Zod Schema Query": {

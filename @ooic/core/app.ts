@@ -8,8 +8,10 @@ import { OoicConfig } from "./types";
 import { initRouter } from "./init-router";
 import { initErrorHandlers } from "./init-error-handlers";
 import { connect, sync } from "./init-connection";
+import { queryParser } from "express-query-parser";
 import { swaggerify } from "./swagger-autogen";
 import unhandled from "./unhandled";
+import { NumberIfNumeric } from "./utils";
 export async function ooic(config: OoicConfig) {
   const app = express();
   config.cors?.enabled && app.use(cors(config.cors.options));
@@ -17,12 +19,20 @@ export async function ooic(config: OoicConfig) {
   config.cookieParser?.enabled && app.use(cookieParser(config.cookieParser.secret, config.cookieParser.options));
   app.use(express.urlencoded({ extended: true }));
   app.use(express.json());
+  app.use(
+    queryParser({
+      parseNumber: true,
+      parseBoolean: true,
+      parseNull: true,
+      parseUndefined: true,
+    })
+  );
 
   await connect();
   await initRouter(app);
-  await initErrorHandlers(app)
-  app.use(unhandled)
-  
+  await initErrorHandlers(app);
+  app.use(unhandled);
+
   // await swaggerify(app),
   await sync();
 

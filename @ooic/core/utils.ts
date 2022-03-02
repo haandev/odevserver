@@ -18,4 +18,6 @@ export const getCommentLines = (str: string) => {
     .filter((e) => !!e);
 };
 
-
+export const NumberIfNumeric = (value) => {
+  return isNaN(value) ? value : Number(value);
+}
