@@ -3,15 +3,17 @@
     "prefix": "rhm",
     "body": [
       "import { RequestHandler } from \"@ooic/core\";",
-      "import { bodySchema } from \"${TM_FILENAME_BASE}.schema\";",
+      "import { schema } from \".\";",
       "",
-      "export const ${TM_FILENAME_BASE}: RequestHandler = async (request, response, next) => {",
+      "const ${TM_FILENAME_BASE}: RequestHandler = async (request, response, next) => {",
       "  try {",
       "    ${1:/* try code */}",
       "  } catch (error) {",
       "    next(error)",
       "  }",
-      "}"
+      "}",
+      "",
+      "export default ${TM_FILENAME_BASE}"
     ],
     "description": "Request Handler"
   },
