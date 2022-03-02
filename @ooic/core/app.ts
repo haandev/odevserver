@@ -11,6 +11,7 @@ import { connect, sync } from "./init-connection";
 import { queryParser } from "express-query-parser";
 import { swaggerify } from "./swagger-autogen";
 import unhandled from "./unhandled";
+import multer from "multer";
 import { NumberIfNumeric } from "./utils";
 export async function ooic(config: OoicConfig) {
   const app = express();
@@ -18,7 +19,8 @@ export async function ooic(config: OoicConfig) {
   config.morgan?.enabled && process.env.NODE_ENV === "development" && app.use(morgan(config.morgan.format, config.morgan.options));
   config.cookieParser?.enabled && app.use(cookieParser(config.cookieParser.secret, config.cookieParser.options));
   app.use(express.urlencoded({ extended: true }));
-  app.use(express.json());
+  app.use(multer())
+  //app.use(express.json());
   app.use(
     queryParser({
       parseNumber: true,
