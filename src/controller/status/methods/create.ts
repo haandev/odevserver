@@ -1,11 +1,11 @@
 import { RequestHandler } from "@ooic/core";
 import { Status } from "@/model/Status";
-export const create: RequestHandler = async (request, response) => {
+import { bodySchema } from "./create.schema";
+export const create: RequestHandler = async (request, response, next) => {
   try {
-    const result = await Status.create({ ...request.body });
+    const result = await Status.create(bodySchema.parse(request.body));
     response.send(result);
   } catch (error) {
-    console.log(error);
-    response.status(500).send(error);
+    next(error);
   }
 };

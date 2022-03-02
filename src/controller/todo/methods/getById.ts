@@ -1,7 +1,7 @@
 import { Todo } from "@/model/Todo";
 import { RequestHandler } from "@ooic/core";
 
-export const getById: RequestHandler = async (request, response) => {
+export const getById: RequestHandler = async (request, response, next) => {
   try {
     const { id } = request.params;
     const todo = await Todo.findOne({
@@ -9,7 +9,6 @@ export const getById: RequestHandler = async (request, response) => {
     });
     response.status(200).send(todo);
   } catch (error) {
-    console.log(error);
-    response.status(500).send(error);
+    next(error)
   }
 };

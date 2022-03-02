@@ -3,31 +3,13 @@
     "prefix": "rhm",
     "body": [
       "import { RequestHandler } from \"@ooic/core\";",
-      "",
-      "export const ${TM_FILENAME_BASE}: RequestHandler = async (request, response) => {",
-      "  try {",
-      "    ${1:/* try code */}",
-      "  } catch (error) {",
-      "    console.log(error);",
-      "    return response.status(500).send(error);",
-      "  }",
-      "}"
-    ],
-    "description": "Request Handler"
-  },
-  "Request Handler with Next": {
-    "prefix": "rhmn",
-    "body": [
-      "import { RequestHandler } from \"@ooic/core\";",
+      "import { bodySchema } from \"${TM_FILENAME_BASE}.schema\";",
       "",
       "export const ${TM_FILENAME_BASE}: RequestHandler = async (request, response, next) => {",
       "  try {",
       "    ${1:/* try code */}",
-      "    ",
-      "    next()",
       "  } catch (error) {",
-      "    console.log(error);",
-      "    return response.status(500).send(error);",
+      "    next(error)",
       "  }",
       "}"
     ],
@@ -96,5 +78,38 @@
       "export { create } from \"./methods/create\";"
     ],
     "description": "Export Controller Method Crud"
+  },
+  "Zod Schema File with Body and Params": {
+    "prefix": "zod",
+    "body": ["import { zod } from \"@ooic/core\";"],
+    "description": "Zod Schema File with Body and Params"
+  },
+  "Zod Schema Body": {
+    "prefix": "zb",
+    "body": ["export const bodySchema = zod.object({", "  ${1:title}: zod.${2:string}()", "});"],
+    "description": "Zod Schema File with Bod"
+  },
+  "Zod Schema Params": {
+    "prefix": "zp",
+    "body": ["export const paramsSchema = zod.object({", "  ${1:id}: zod.string().regex(/^\\d+$/).transform(Number);", "});"],
+    "description": "Zod Schema File with Params"
+  },
+  "Zod Schema Query": {
+    "prefix": "zq",
+    "body": ["export const querySchema = zod.object({", "  ${1:id}: zod.${2:number}()", "});"],
+    "description": "Zod Schema File with Query"
+  },
+  "Error handler middleware": {
+    "prefix": "errh",
+    "body": [
+      "import { ErrorRequestHandler, StatusCodes } from \"@ooic/core\";",
+      "const ${TM_FILENAME_BASE}: ErrorRequestHandler = async (error, _request, response, next) => {",
+      "  if (error.name === \"${TM_FILENAME_BASE}\") return response.status(${1:code}).send(error).json();",
+      "  next(error);",
+      "};",
+      "export default ${TM_FILENAME_BASE}",
+      ""
+    ],
+    "description": "Error handler middleware"
   }
 }

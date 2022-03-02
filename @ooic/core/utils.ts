@@ -1,3 +1,5 @@
+import { ZodObject, ZodSchema } from "zod";
+
 export const toKebabCase = (str: string) =>
   str &&
   str
@@ -5,16 +7,15 @@ export const toKebabCase = (str: string) =>
     .map((x) => x.toLowerCase())
     .join("-");
 
-export const isStartsCapital = (str: string) =>
-  str && str.charAt(0) === str.charAt(0).toUpperCase();
+export const isStartsCapital = (str: string) => str && str.charAt(0) === str.charAt(0).toUpperCase();
 
 export const getCommentLines = (str: string) => {
-  let returnValue =
-    str.match(/\/\*\*([^*]|[\r\n]|(\*+([^*\/]|[\r\n])))*\*\/+/)?.[0] ||
-    "/** */";
+  let returnValue = str.match(/\/\*\*([^*]|[\r\n]|(\*+([^*\/]|[\r\n])))*\*\/+/)?.[0] || "/** */";
   return returnValue
     .replace(/(\/\*\*)|(\*\/)|(\n)/g, "")
     .split("*")
     .map((val) => val.trim())
     .filter((e) => !!e);
 };
+
+

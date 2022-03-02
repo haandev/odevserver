@@ -1,7 +1,7 @@
 import { Todo } from "@/model/Todo";
 import { RequestHandler } from "@ooic/core";
 
-export const update: RequestHandler = async (request, response) => {
+export const update: RequestHandler = async (request, response, next) => {
   try {
     const { id } = request.params;
 
@@ -12,7 +12,6 @@ export const update: RequestHandler = async (request, response) => {
     todo.update(request.body);
     response.status(200).send(todo);
   } catch (error) {
-    console.log(error);
-    response.status(500).send(error);
+    next(error)
   }
 };

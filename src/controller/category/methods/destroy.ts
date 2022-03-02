@@ -1,18 +1,16 @@
 import { Category } from "@/model/Category";
 import { RequestHandler } from "@ooic/core";
-
-export const destroy: RequestHandler = async (request, response) => {
+import { paramsSchema } from "./destroy.schema";
+export const destroy: RequestHandler = async (request, response, next) => {
   try {
-    const { id } = request.params;
-
+    const { id } = paramsSchema.parse(request.params);
     const category = await Category.findOne({ where: { id: Number(id) } });
 
-    if (category.userId !== request.authUser.id) response.status(403).send("Unauthorized");
+    if (category.userId !== request.authUser.id) throw { statusCode: 403, message: "Unauthorized" };
 
     category.destroy();
     response.status(200).send("Deleted");
   } catch (error) {
-    console.log(error);
-    response.status(500).send(error);
+    next(error);
   }
 };
