@@ -34,7 +34,8 @@ export async function ooic(config: OoicConfig) {
   await initErrorHandlers(app);
   app.use(unhandled);
 
-  // await swaggerify(app),
+  //await swaggerify(app),
+  //console.log(routes)
   await sync();
 
   if (process.env.NODE_ENV === "development") {

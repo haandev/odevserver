@@ -19,10 +19,9 @@ const trimEndStr = (source: string, str: string) => {
     return source.slice(0, start);
   }
 };
-const routes = [];
+export const routes = [];
 const recursivePath = (r, pathPrev = "") => {
   const path = getFullPath(r, pathPrev);
-  console.log(r)
   if (r.name === "router") {
     const stack = r.handle.stack;
     stack.forEach((r, i) => {
@@ -40,5 +39,4 @@ export async function swaggerify(app) {
   app._router.stack.forEach((r, i) => {
     recursivePath(r);
   });
-  console.log(routes[1].stack[0].handle.toString());
 }

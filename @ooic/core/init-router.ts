@@ -1,14 +1,23 @@
 import fs from "fs";
 import { toKebabCase } from "./utils";
 import { Express } from "express";
+const loadRouteFolder = (Routers,app,folderName) => {
+  const files = fs.readdirSync(`src/router${folderName}/`, { withFileTypes: true });
+  files.forEach(async (file)=>{
+    if (file.isFile()){
+      console.log("try to import ",`@/router${folderName}/${file.name}`)
+      const  loadedModule = await import(`@/router${folderName}/${file.name}`)
+      const name = toKebabCase(file.name.split(".")[0]);
+      Routers[name] = loadedModule.default;
+      app.use(`${folderName}/${name}`, Routers[name]);
+    }
+    else {   
+     loadRouteFolder(Routers,app,folderName+"/"+file.name)
+    }
+  })
+}
+
 export const initRouter = async (app: Express) => {
   const Routers = {};
-  const files = fs.readdirSync("src/router/");
-  await Promise.all(files.map((fileName) => import(`@/router/${fileName}`))).then((responses) => {
-    responses.forEach((loadedModule, index) => {
-      const name = toKebabCase(files[index].split(".")[0]);
-      Routers[name] = loadedModule.default;
-      app.use(`/${name}`, Routers[name]);
-    });
-  });
+  loadRouteFolder(Routers,app,"")
 };
