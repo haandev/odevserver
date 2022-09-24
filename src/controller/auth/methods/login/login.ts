@@ -14,6 +14,7 @@ const login: RequestHandler = async (request, response, next) => {
     const user = await User.findOne({
       where: { username },
     });
+   // console.log(user,"p",user.password,await bcrypt.compare(password, user.password),password)
     if (!user || !(await bcrypt.compare(password, user.password))) throw { statusCode: 403, message: "Invalid Credentials" };
 
     const payload = { id: user.id, username: user.username };
