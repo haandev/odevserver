@@ -5,11 +5,13 @@ services:
     ports:
       - "80:80"
   db:
-    image: "mysql:5.7.37-oracle"
+    image: "postgres:latest"
     volumes:
-      - "./.mysql-data/db:/var/lib/mysql"
+      - ./postgres-data:/var/lib/postgresql/data
+      #- "./.mysql-data/db:/var/lib/mysql"
     ports:
-      - "3306:3306"
+      - "5432:5432"
     environment:
-      - MYSQL_ROOT_PASSWORD=000000
-      - MYSQL_DATABASE=patika
+          - POSTGRES_USER=postgres
+          - POSTGRES_PASSWORD=postgress
+          - POSTGRES_DB=patika
